@@ -1,0 +1,32 @@
+
+
+.container{
+    width:95%;
+    overflow:hidden;
+    background-color: white;
+    margin:20px;
+    padding: 20px 0px;
+
+}
+.container ul{
+    padding: 0px;
+    margin:0px;
+}
+.container ul li{
+    list-style: none;
+    float: left;
+    width:20%;
+    height:300px;
+    background:red;
+    margin:40px 30px 0px 40px;
+    box-sizing:border-box;
+    border:2px solid cornflowerblue;
+}
+
+.container ul li .title{
+    width: 100%;
+    height:50px;
+    line-height: 50px;
+    background-color: whitesmoke;
+    text-align: center;
+}

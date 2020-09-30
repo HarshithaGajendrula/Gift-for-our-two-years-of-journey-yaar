@@ -1,0 +1,41 @@
+#des:hover{
+	  		color:black;
+	  	}
+	  	#form{
+		
+			
+			width:auto;
+			height:500px;
+
+		}
+		#form #code{
+			height: 300px;
+			width:auto;
+			font-size: 18px;
+
+		}
+		#phpcode{
+			height: 300px;
+			font-size: 18px;
+		}
+@media(max-width:992px){
+	#heading{
+		color:yellow;
+		font-size: 30px;
+	}
+	#form{
+		
+			width:100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			font-size: 22px;
+
+		}
+		#form #code{
+			width:100%;
+			font-size: 16px;
+			overflow-x:hidden;
+		}
+		
+}

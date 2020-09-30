@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8">
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1">                                                       <!--image effect-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">                                                     <!--image slider-->
+
+
+     <title>HTML</title>
+
+
+     <style type="text/css">
+     
+          
+ * {box-sizing: border-box;}                                                                                                        /*image slider*/
+
+.img-comp-container {
+  position: relative;
+  height: 200px; /*should be the same height as the images*/
+}
+
+.img-comp-img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow:hidden;
+}
+
+.img-comp-img img {
+  display:block;
+  vertical-align:middle;
+}
+
+.img-comp-slider {
+  position: absolute;
+  z-index:9;
+  cursor: ew-resize;
+  /*set the appearance of the slider:*/
+  width: 40px;
+  height: 40px;
+  background-color: #2196F3;
+  opacity: 0.7;
+  border-radius: 50%;
+}                                                                                                                             /*image slider end*/
+
+
+
+        *{
+         margin:0;
+         padding:0;
+        }
+        body{
+            background-image:url('img1.jpg');
+            background-position:center;
+            background-attachment: fixed;
+            background-size:cover;
+            } 
+            .letters{
+                background-color: black;
+                color:white;
+                font-style: italic;
+                text-align: center;
+                font-size: 16px;
+                padding: 8px 8px;
+            }
+            .spltext2{
+              background-color: black;
+                color:red;
+                font-style: italic;
+                text-align: center;
+                font-size: 20px;
+                padding: 8px 8px;
+            }
+.start{
+ 
+  font-size:45.4px;
+  color:white;
+  text-align: center;
+  background-color: black;
+
+}
+.spltext1{
+  background-color: black;
+  color:red;
+  font-style: italic;
+  text-align: center;
+  font-size: 16px;
+}
+
+
+.exclamatory{
+  color:white;
+  font-size:20px;
+}
+
+
+
+ * {                                                                                                                  /*img side by side*/
+  box-sizing: border-box;
+}
+
+.line {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.hline::after {
+  content:"";
+  clear: both;
+  display: table;
+}                                                                                                                       /*img side by side end*/
+ 
+
+
+.container {                                                                                                              /*image effect*/
+  position: relative;
+  width: 600px;
+  height:600px;
+}
+
+.pic {
+  display: block;
+  width: 100%;
+  height:600px;
+ /* height: auto;  */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #08bdfa;
+}
+
+.container:hover .overlay {
+  opacity: 2;
+}
+
+.alphabets {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}                                                                                                                                            /*image effect end*/
+
+div.gallery {                                                                                                                 /*photos grid */
+
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+  background-color: black;
+  color: aliceblue;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}                                                                                                                              /*photos grid end*/
+
+        </style>
+
+<script>                                                                                                                                       /*image slider*/
+  function initComparisons() {
+    var x, i;
+    /*find all elements with an "overlay" class:*/
+    x = document.getElementsByClassName("img-comp-overlay");
+    for (i = 0; i < x.length; i++) {
+      /*once for each "overlay" element:
+      pass the "overlay" element as a parameter when executing the compareImages function:*/
+      compareImages(x[i]);
+    }
+    function compareImages(img) {
+      var slider, img, clicked = 0, w, h;
+      /*get the width and height of the img element*/
+      w = img.offsetWidth;
+      h = img.offsetHeight;
+      /*set the width of the img element to 50%:*/
+      img.style.width = (w / 2) + "px";
+      /*create slider:*/
+      slider = document.createElement("DIV");
+      slider.setAttribute("class", "img-comp-slider");
+      /*insert slider*/
+      img.parentElement.insertBefore(slider, img);
+      /*position the slider in the middle:*/
+      slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+      slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+      /*execute a function when the mouse button is pressed:*/
+      slider.addEventListener("mousedown", slideReady);
+      /*and another function when the mouse button is released:*/
+      window.addEventListener("mouseup", slideFinish);
+      /*or touched (for touch screens:*/
+      slider.addEventListener("touchstart", slideReady);
+      /*and released (for touch screens:*/
+      window.addEventListener("touchend", slideFinish);
+      function slideReady(e) {
+        /*prevent any other actions that may occur when moving over the image:*/
+        e.preventDefault();
+        /*the slider is now clicked and ready to move:*/
+        clicked = 1;
+        /*execute a function when the slider is moved:*/
+        window.addEventListener("mousemove", slideMove);
+        window.addEventListener("touchmove", slideMove);
+      }
+      function slideFinish() {
+        /*the slider is no longer clicked:*/
+        clicked = 0;
+      }
+      function slideMove(e) {
+        var pos;
+        /*if the slider is no longer clicked, exit this function:*/
+        if (clicked == 0) return false;
+        /*get the cursor's x position:*/
+        pos = getCursorPos(e)
+        /*prevent the slider from being positioned outside the image:*/
+        if (pos < 0) pos = 0;
+        if (pos > w) pos = w;
+        /*execute a function that will resize the overlay image according to the cursor:*/
+        slide(pos);
+      }
+      function getCursorPos(e) {
+        var a, x = 0;
+        e = e || window.event;
+        /*get the x positions of the image:*/
+        a = img.getBoundingClientRect();
+        /*calculate the cursor's x coordinate, relative to the image:*/
+        x = e.pageX - a.left;
+        /*consider any page scrolling:*/
+        x = x - window.pageXOffset;
+        return x;
+      }
+      function slide(x) {
+        /*resize the image:*/
+        img.style.width = x + "px";
+        /*position the slider:*/
+        slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+      }
+    }           
+  }                                                                                                                                      /*image slider end*/
+  </script>                                                                                                                                       
+
+ </head>
+<body>
+  <br>
+  <br>
+<h1 style="color:white">GIFT FOR OUR TWO YEARS OF JOURNEY</h1><h2 style="text-align: right;">-01/10/2020</h2>
+<br>
+<br>
+  <div class="img-comp-container">                                                                                         <!--image slider-->
+    <div class="img-comp-img">
+    <img src="SLIDER00.png" width="750px" height="700px">
+    </div>
+    <div class="img-comp-img img-comp-overlay">
+    <img src="SLIDER0.png" width="750px" height="700px">
+   </div>
+    </div>
+                                                                                                                                         
+   <script>
+    /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
+    initComparisons();
+   </script>                                                                                                                           <!--image slider end-->
+    
+
+    <br>
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br>
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br> 
+    <br>
+    <br> 
+    <br> 
+    <br> 
+  
+
+
+  <marquee scrollmount = "1"  DIRECTION=RIGHT >
+    <img src="emoji3.jpg"  width="90" height="90">
+    <img src="emoji4.jpg"  width="90" height="90">
+    <img src="emoji5.jpg"  width="90" height="90">
+    <img src="emoji6.png"  width="90" height="90">
+    <img src="emoji7.jpg"  width="90" height="90">
+    <img src="emoji9.jpg"  width="90" height="90">
+    <img src="emoji10.jpg"  width="90" height="90">
+    <img src="emoji11.jpg"  width="90" height="90">
+    <img src="emoji12.jpg"  width="90" height="90">
+    <img src="emoji13.jpg"  width="90" height="90">
+    <img src="emoji14.jpg"  width="90" height="90">
+    <img src="emoji15.jpg"  width="90" height="90">
+    <img src="emoji16.jpg"  width="90" height="90">
+    <img src="emoji17.jpg"  width="90" height="90">
+    <img src="emoji18.jpg"  width="90" height="90">
+    <img src="emoji21.jpg"  width="90" height="90">
+    <img src="emoji22.jpg"  width="90" height="90">
+    <img src="emoji23.jpg"  width="90" height="90">
+   <a href="no.1 emoji.html"><img src="emoji19.jpg"  width="90" height="90"></a>
+  </marquee>
+
+  <div class="start">
+    <p> 
+      <a href="left emoji.html"><img src="EMOJI.webp"  width="90" height="90"></a> 
+      <img src="hi clipart.com.png" style="width:800px;height:350px">
+      <a href="right emoji.html"><img src="EMOJI.webp" width="90" height="90"></a> <br>
+      ᗰ𝔸𝐉Ⓞℝ(Hemaོ) <a href="girl.html"><img src="hiclipart.com (24).png"  width="90" height="90"></a>
+      <h2 class="spltext1">A birthday is a lovely flower that blooms in life's garden and may that special blossom be bright especially today<br>
+      The more you praise and celebrate your life,the more there is in life to celebrate
+      <h class="exclamatory">❣</h></h2>
+    </p>
+  </div>
+ 
+  <marquee scrollmount = "1"  DIRECTION=LEFT>
+  <img src="emoji3.jpg"  width="90" height="90">
+  <img src="emoji4.jpg"  width="90" height="90">
+  <img src="emoji5.jpg"  width="90" height="90">
+  <img src="emoji6.png"  width="90" height="90">
+  <img src="emoji7.jpg"  width="90" height="90">
+  <img src="emoji9.jpg"  width="90" height="90">
+  <img src="emoji10.jpg"  width="90" height="90">
+  <img src="emoji11.jpg"  width="90" height="90">
+  <img src="emoji12.jpg"  width="90" height="90">
+  <img src="emoji13.jpg"  width="90" height="90">
+  <img src="emoji14.jpg"  width="90" height="90">
+  <img src="emoji15.jpg"  width="90" height="90">
+  <img src="emoji16.jpg"  width="90" height="90">
+  <img src="emoji17.jpg"  width="90" height="90">
+  <img src="emoji18.jpg"  width="90" height="90">
+  <img src="emoji19.jpg"  width="90" height="90">
+  <img src="emoji20.jpg"  width="90" height="90">
+  <img src="emoji21.jpg"  width="90" height="90">
+  <img src="emoji22.jpg"  width="90" height="90">
+  <img src="emoji23.jpg"  width="90" height="90">
+</marquee>
+
+<br> 
+<br> 
+<br>
+<br> 
+<br> 
+<br> 
+
+
+        <h2 class="spltext2">(っ.❛ ᴗ ❛.)っ💝💛 Hema many more happy and joyful returns of the day yaar 💛💝⊂(.•‿•.⊂ )*.✧</h2>
+    <h2 class="letters">I wonna express my views from where Our convo started...</h2>
+    <h3 class="letters">*krishnaveni arts and science campus lo manam kalisam😂😂adhi kuda exam rayadaniki vacham,nuvvevaro naku thelidu.....
+        nenevaro niku thelidu..we are strangers👦🏻👧🏻
+      </h3>
+
+      <div class="area">                                                                                                               <!--img side by side -->
+      <div class="hline">
+        <div class="line">
+          <img src="hexam.png" style="width:420px;height:350px; border-radius:5px">
+          <h1 class="letters" style="width:85%">idi first mana pani maname</h1>
+        </div>
+
+        <div class="line">
+          <img src="hexam.jpg" style="width:420px;height:350px; border-radius:5px">
+          <h6 class="letters" style="width:85%">u waited for me idi naku chala spl time</h6>
+        </div>
+
+        <div class="line" >
+          <img src="EXAM.jpg" style="width:420px;height:350px; border-radius:5px" >
+          <h6 class="letters" style="width:85%">we discussed😜</h6>
+        </div>           
+      </div>
+      </div>                                                                                                                   <!--img side by side end-->
+        
+      
+    <h3 class="letters">Nenu ninnu first chudaledu exam ki anni ready ga unnaya leda ani chuskuntunna...pakkana ninnu grahinchi boy aa anukunna...
+        nenu nidantu observe chesindi ante  adhi ni pouch ne 'ammo abbai ayyi undi bane thechadu anukunna,endhukante generalga boys okka pen thechkodame ekkuva 
+        ankuntaru😅',I think asal chaala sepati varaku manaki eye contact a ledu tharvatha..answer booklets vachaka ika start chesam,nuv chaala descent ga margins 
+        kottadam naku nachindhi,it admired me.
+        Exam chaala fast ga raasesi nakosam eduruchusthu unnav, aa vishyam naku ardhamayyindi nuv first nannu adigina maata '𝔞 𝔠𝔩𝔤' ani
+        nenu 'sri chaitanya' anna nidi kuda same ayyesaraki kocham happy/free environent create aindi tharvatha na exam aypoyaka ni vaipu chusa 
+        nuv chaala ready ga unnav matladadham ani appude nenu sanskrit bits adiga raasava ani,nuv ni qn paper meeda raasi ichav i felt 'ok tq' nenu check chesa 
+        navi nivi 3 different unnay I don't know who's are correct one...tharvatha inkemanna kavala annav naaku shabdhalu extra ans kuda raayali anpinchindi kaani 
+        adhi table a gurthuledu,nuv chupinchav adhi😇...madyalo iga koncham light ga matladam ankunta exam aypoyaka nenu fast ga velli baita nilchunna ni qn paper
+         niku ichedham ani,vachi thiskunnav ika bye chepkoni velpoyam...and manam oka 3 exams ki same room 1st day on 
+        sanskrit exam,next english exam day-aa roju nuvu nenu same color(sky blue)nenemo long length nuvvu t-shirt nikemo gurthuledu vere veskunna antunnav but i 
+        remembered and last chemistry exam day..chemistry exam day manaki pakka pakka row lo seating vachindi, and exam rayatam aypoyaka 
+        nuv nannu hallticket adigav peru confirm cheskodaniki nenundhuko doubtful ga ne icha I don't know why,chocolate ivvadaniki try chesav kada sry 
+        thiskonanduku..ala bye chepkoni velpoyam,Hema I wonna say onething wt I felt that day nuv naku endhuko heart ki daggarga anpinchav nuv naaku kanisam 
+        friend aithe chaalu anukunna endhukante enthamandi abbailni chusuntano kani nakevaru antha close anpinchale it's like <h style="color: yellow;">I looked at u 
+          and hoped, u stay in my life Forever</h>..... wait chesa hema, results vachevaraku, endhukante hallticket number tho results search chesthe atleast ni peru 
+          aina thelsukovachu ani,thelsukunna  <h style="color: rgb(0, 247, 255);"> 'KATAKAM BHANU HEMANTH💛🤭'</h>
+        facebook lo search chesa its my luck adhe perutho ni id undhi request petta naku chaala manchiga anpinchindi ante chaala rojulu wait chesa kada dhani falitham 
+        dakkindi ani....aa tharvatha we had many warmful of feelings and introduces...
+    </h3>
+    <br>
+
+    <div class="responsive">                                                                                                                   <!--photos grid end-->
+      <div class="gallery">
+        <a target="_blank" href="e (8).jpg">
+          <img src="e (8).jpg"  style="width:365px;height:520px;">
+        </a>
+        <div class="desc">💞💞💞💞💞💞💞💞💞💞💞💞💞</div>
+      </div>
+    </div>
+       
+    <div class="responsive">
+      <div class="gallery">
+        <a target="_blank" href="frd (2).jpg">
+          <img src="frd (2).jpg"  style="width:365px;height:285px;">
+        </a>
+        <div class="desc">💞💞💞💞💞💞💞💞💞💞Best Friends</div>
+      </div>
+    </div>
+  
+    <div class="responsive">
+      <div class="gallery">
+        <a target="_blank" href="frd (1).jpg">
+          <img src="frd (1).jpg"  style="width:365px;height:285px;">
+        </a>
+        <div class="desc">Forever💞💞💞💞💞💞💞💞💞💞💞💞</div>
+      </div>
+    </div>
+    
+    <div class="responsive">
+      <div class="gallery">
+        <a target="_blank" href="e (9).jpg">
+          <img src="e (9).jpg" style="width:365px;height:520px;">
+        </a>
+        <div class="desc">💞💞💞💞💞💞💞💞💞💞💞💞💞</div>
+      </div>
+    </div>
+    
+    <div class="clearfix"></div>                                                                                                         <!--photos grid end-->
+    <br> 
+    <br> 
+    <h3 style="font-size: 25px;color: white;">Asal shocking and surprising thing entante naaku niku oke college option select aindi, nenante na frd undani kori mari list lo 
+      first name aa clg a petkunna but nikela adhe clg lo seat vachindi
+      <img src="emoji30.png" style="width:70px;height:70px;">
+      <img src="emoji31.png" style="width:70px;height:70px;">
+      <img src="hiclipart.com.png" style="width:50px;height:50px;">
+      <img src="emoji35.png" style="width:70px;height:70px;">
+      <img src="emoji33.png" style="width:70px;height:70px;">
+      
+      
+    how rey, how..??<br>enni vidaluga alochinchina nenaithe by gods grace ane ankuntunna<img src="emoji36.png" style="width:70px;height:100px;">
+  </h3>
+  <br> 
+  <br> 
+  <br>
+   <h style="color:white ;font-size: 25px;">From friends to more than friends we are grown up..😜🤪🥰😎</h>
+ 
+
+<div class="container">                                                                                                      <!--image effect-->
+  <a href="memories.html"><img src="img5.jpg" alt="Avatar" class="pic">
+  <div class="overlay">
+    <div class="alphabets">Click this our pics and memories are waiting to admire u</div>
+  </div>
+</a>
+
+</div>                                                                                                                        <!--image effect end-->
+
+
+
+</body>
+
+
+
+</html>

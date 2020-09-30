@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+
+.box{
+    background: url(../images/box.jpg) no-repeat scroll left bottom;
+    margin-bottom: 10px;
+    padding: 0 0 15px;
+    width:250px
+}
+.box h2{
+    background: url(../images/box.jpg)repeat scroll 0 0;
+    color:#333;
+    font-size:12px;
+    height:35px;
+    
+}
